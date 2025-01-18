@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node", // Ajout pour assurer la résolution des modules
+    "resolveJsonModule": true, // Si vous utilisez des fichiers JSON
+    "target": "esnext" // Ajout pour garantir une meilleure compatibilité avec ESNext
+  },
+  "include": [
+    "src/react-app-env.d.ts",
+    "src/global.d.ts",
+    "src/**/*" // Inclut tous les fichiers dans le dossier src
+  ],
+  "extends": "expo/tsconfig.base"
+}

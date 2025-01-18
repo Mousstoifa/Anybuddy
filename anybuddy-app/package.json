@@ -1,0 +1,51 @@
+{
+  "name": "anybuddy-app",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@react-navigation/bottom-tabs": "^7.2.0",
+    "@react-navigation/native": "^7.0.14",
+    "@react-navigation/stack": "^7.1.1",
+    "expo": "^52.0.25",
+    "expo-status-bar": "~2.0.1",
+    "ngrok": "^5.0.0-beta.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-native": "^0.76.6",
+    "react-native-gesture-handler": "~2.20.2",
+    "react-native-get-random-values": "^1.11.0",
+    "react-native-reanimated": "^3.16.7",
+    "react-native-safe-area-context": "^4.12.0",
+    "react-native-screens": "~4.4.0",
+    "react-native-vector-icons": "^10.2.0",
+    "react-native-web": "^0.19.13",
+    "react-navigation-stack": "^2.10.4",
+    "sass": "^1.83.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@types/cacheable-request": "^6.0.3",
+    "@types/history": "^4.7.11",
+    "@types/prop-types": "^15.7.14",
+    "@types/react": "~18.3.12",
+    "@types/react-dom": "~18.3.1",
+    "@types/react-native": "^0.72.8",
+    "@types/react-native-vector-icons": "^6.4.18",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/responselike": "^1.0.3",
+    "css-loader": "^7.1.2",
+    "style-loader": "^4.0.0",
+    "typescript": "^5.3.3"
+  },
+  "resolutions": {
+    "@types/react": "18.2.14",
+    "@types/react-dom": "18.2.6"
+  },
+  "private": true
+}
