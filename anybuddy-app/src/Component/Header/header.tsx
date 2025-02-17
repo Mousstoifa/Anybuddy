@@ -1,7 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native"; // 🔹 Import navigation hook
 
 const Header = () => {
+  const navigation = useNavigation(); // 🔹 Initialisation de la navigation
+
   return (
     <View style={styles.header}>
       <Text style={styles.logo}>Anybuddy</Text>
@@ -17,6 +20,11 @@ const Header = () => {
         </TouchableOpacity>
         <TouchableOpacity style={styles.navLink} onPress={() => console.log("Profil")}>
           <Text style={styles.navText}>Profil</Text>
+        </TouchableOpacity>
+        
+        {/* 🔹 Bouton pour naviguer vers Inscription */}
+        <TouchableOpacity style={styles.navLink} onPress={() => console.log("Inscription")}>
+          <Text style={styles.navText}>S'inscrire</Text>
         </TouchableOpacity>
       </View>
     </View>
