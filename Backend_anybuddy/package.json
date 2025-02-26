@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node -r dotenv/config Src/App.js",
     "dev": "nodemon -r dotenv/config Src/App.js",
-    "test": "echo \"No tests specified\" && exit 1"
+    "test": "echo \"No tests specified\" && exit 1",
+    "build": "tsc"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.48.1",
@@ -19,6 +20,7 @@
     "postgres": "^3.4.5"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "nodemon": "^2.0.22"
   }
 }
