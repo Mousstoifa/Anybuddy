@@ -13,30 +13,39 @@ const Contact = () => {
   
 
   const handleLogin = async () => {
+    if (loading) return;
     setLoading(true);
+  
     try {
-      const response = await fetch("http://192.168.1.14:5000/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, mdp }),
-      });
-
+      const response = await fetch(
+        `http://192.168.1.14:5000/api/users?email=${encodeURIComponent(email)}&mdp=${encodeURIComponent(mdp)}`, 
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP: ${response.status}`);
+      }
+  
       const data = await response.json();
-
-      if (response.ok) {
+      console.log("Réponse API:", data); // ✅ Voir la réponse exacte
+  
+      if (data.user) {
         Alert.alert("Connexion réussie", `Bienvenue, ${data.user.name}`);
-        navigation.navigate("Home"); // Rediriger vers Home après connexion
+        navigation.navigate("Home");
       } else {
-        Alert.alert("Erreur", data.message || "Identifiants incorrects");
+        Alert.alert("Erreur", data.message || "Identifiants incorrects.");
       }
     } catch (error) {
       console.error("Erreur de connexion:", error);
-      Alert.alert("Erreur", "Impossible de se connecter. Vérifiez votre connexion.");
+      Alert.alert("Erreur", `Impossible de se connecter : ${error}`);
     } finally {
       setLoading(false);
     }
   };
-
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Hello</Text>

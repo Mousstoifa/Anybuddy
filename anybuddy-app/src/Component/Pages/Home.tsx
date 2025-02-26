@@ -15,23 +15,29 @@ const Home = () => {
       name: "Five FC Paris - La Villette",
       image: require("../../Images/ParisFive18.jpg"),
       distance: "3,2 km",
-      times: [
-        { time: "17h00", price: "45 €" },
-        { time: "18h30", price: "50 €" },
-        { time: "20h00", price: "55 €" },
-      ],
+      address: "5 Rue de la Villette, 75019 Paris",
     },
     {
       id: 2,
       name: "UrbanSoccer - Meudon",
       image: require("../../Images/Fivemeudon.jpg"),
       distance: "5,5 km",
-      times: [
-        { time: "16h00", price: "40 €" },
-        { time: "18h00", price: "45 €" },
-        { time: "19h30", price: "50 €" },
-      ],
+      address: "Chemin du Tronchet, 92360 Meudon",
     },
+    {
+      id: 3,
+      name: "Five FC - Champigny",
+      image: require("../../Images/FiveChampigny.webp"),
+      distance: "7,0 km",
+      address: "1 Rue du Marché Rollay, 94500 Champigny-sur-Marne",
+    },
+    {
+      id: 4,
+      name: "Five FC - Ivry",
+      image: require("../../Images/ParisIvry.webp"),
+      distance: "8,3 km",
+      address: "2 Rue de la Baignade, 94200 Ivry-sur-Seine",
+    }
   ];
 
   return (
@@ -41,7 +47,12 @@ const Home = () => {
         {terrains.map((terrain) => (
           <TouchableOpacity
             key={terrain.id}
-            onPress={() => navigation.navigate("TerrainDetails", { terrain })} // ✅ Corrigé ici
+            onPress={() => navigation.navigate("TerrainDetails", { 
+              terrain: { 
+                ...terrain, 
+                times: [] // ✅ Correction : Ajout de times pour éviter l'erreur
+              } 
+            })}
           >
             <View style={styles.terrain}>
               <Image source={terrain.image} style={styles.image} resizeMode="cover" />
