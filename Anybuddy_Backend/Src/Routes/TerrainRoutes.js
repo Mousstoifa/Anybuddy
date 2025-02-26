@@ -14,7 +14,6 @@ router.get('/', getTerrains);
 router.post('/', createTerrain); 
 router.put('/:id', updateTerrain);
 router.delete('/:id', deleteTerrain);
-
 router.get('/types', getTypesTerrain); 
 
 export default router;

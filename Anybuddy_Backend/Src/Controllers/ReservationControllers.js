@@ -10,9 +10,9 @@ export const getReservations = async (req, res) => {
       horaire,
       duree,
       prix,
-      idDisponibilite,
+      "idDisponibilite",
       disponibilite (
-        idDisponibilite,
+        "idDisponibilite",
         datedebut,
         datefin,
         idterrain
@@ -31,30 +31,29 @@ export const getReservations = async (req, res) => {
   }
 };
 export const getReservationsByTerrain = async (req, res) => {
-  const { idTerrain } = req.params; // ID du terrain
+  const { idTerrain } = req.params; // Récupère l'ID du terrain depuis l'URL
 
   try {
     const { data, error } = await supabase
-      .from('reservation')
-      .select(`
-        idreservation,
-        horaire,
-        duree,
-        prix,
-        idDisponibilite,
-        disponibilite!inner (
-          idDisponibilite,
-          datedebut,
-          datefin,
-          idterrain
-        )
-      `)
-      .eq("disponibilite.idterrain", idTerrain);
-
+  .from("reservation")
+  .select(`
+    idreservation,
+    horaire,
+    duree,
+    prix,
+    idDisponibilite,
+    disponibilite (
+      idDisponibilite,
+      datedebut,
+      datefin,
+      idterrain
+    )
+  `)
     if (error) throw error;
 
     res.status(200).json(data);
   } catch (error) {
+    console.error("🚨 Erreur API :", error.message);
     res.status(500).json({ error: error.message });
   }
 };

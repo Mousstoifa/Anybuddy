@@ -99,3 +99,32 @@ export const getTypesTerrain = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const getTerrainById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const { data, error } = await supabase
+      .from("terrain")
+      .select(`
+        idterrain,
+        nom_equipe,
+        couleur_equipe,
+        typeterrain (
+          idtypeterrain,
+          libelle,
+          description,
+          nbpersonne
+        )
+      `)
+      .eq("idterrain", id)
+      .single();
+
+    if (error) throw error;
+
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
