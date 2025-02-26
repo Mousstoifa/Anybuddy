@@ -52,5 +52,10 @@
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6"
   },
-  "private": true
+  "private": true,
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
 }
