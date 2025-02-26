@@ -34,3 +34,24 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+
+# Ignorer les fichiers système Windows
+.DS_Store
+Thumbs.db
+Desktop.ini
+NTUSER.DAT*
+OneDrive/
+Downloads/
+Videos/
+Music/
+Saved Games/
+Searches/
+Pictures/
+
+# Ignorer les fichiers de configuration et caches
+node_modules/
+.cache/
+.idea/
+.vscode/
+.env
