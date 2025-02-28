@@ -11,16 +11,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout du code
+      - name:  Checkout du code
         uses: actions/checkout@v3
 
-      - name:  Configuration de Node.js
+      - name: Configuration de Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Installation des dépendances
+      - name:  Installation des dépendances
         run: npm install
+
+      - name:  Vérification de Jest
+        run: npm list jest || npm install --save-dev jest
 
       - name:  Exécution des tests
         run: npm test
