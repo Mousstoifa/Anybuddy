@@ -132,39 +132,38 @@ const TerrainDetails = () => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: "#fff", alignItems: "center" },
+  container: { flex: 1, padding: 20, backgroundColor: "#E8F5E9", alignItems: "center" },
 
   image: { width: "100%", height: 200, borderRadius: 10, marginBottom: 15 },
 
-  title: { fontSize: 20, fontWeight: "bold", textAlign: "center", marginBottom: 5 },
-  distance: { fontSize: 16, color: "#666", marginBottom: 15, textAlign: "center" },
+  title: { fontSize: 20, fontWeight: "bold", textAlign: "center", marginBottom: 5, color: "#1B5E20" },
+  distance: { fontSize: 16, color: "#388E3C", marginBottom: 15, textAlign: "center" },
 
-  label: { fontSize: 16, fontWeight: "bold", marginTop: 10, textAlign: "center" },
+  label: { fontSize: 16, fontWeight: "bold", marginTop: 10, textAlign: "center", color: "#2E7D32" },
 
   reservationItem: {
     width: "100%",
     padding: 15,
-    backgroundColor: "#F5F5F5",
+    backgroundColor: "#C8E6C9",
     borderRadius: 8,
     marginBottom: 10,
     textAlign: "center",
   },
 
-  selectedReservation: { backgroundColor: "#FF5722", color: "#fff" },
+  selectedReservation: { backgroundColor: "#1B5E20", color: "#fff" },
 
   noData: { color: "#999", fontSize: 16, marginTop: 20 },
 
   buttonContainer: { 
     position: "absolute", 
-    bottom: 20, // ✅ Remonte le bouton
+    bottom: 20, 
     width: "100%", 
     alignItems: "center"
   },
 
   button: { 
-    backgroundColor: "#FF5722", 
+    backgroundColor: "#1B5E20",  
     padding: 15, 
     borderRadius: 8, 
     alignItems: "center", 

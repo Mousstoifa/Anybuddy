@@ -12,8 +12,8 @@ const Header = () => {
         <TouchableOpacity style={styles.navLink} onPress={() => console.log("Accueil")}>
           <Text style={styles.navText}>Accueil</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navLink} onPress={() => console.log("About")}>
-          <Text style={styles.navText}>About</Text>
+        <TouchableOpacity style={styles.navLink} onPress={() => console.log("A propos")}>
+          <Text style={styles.navText}>A propos</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navLink} onPress={() => console.log("Contact")}>
           <Text style={styles.navText}>Contact</Text>
@@ -33,7 +33,7 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: "#6200ea",
+    backgroundColor: "#4A148C", // Violet foncé (Anybuddy)
     padding: 15,
     flexDirection: "row",
     justifyContent: "space-between",

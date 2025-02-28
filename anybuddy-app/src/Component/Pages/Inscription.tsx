@@ -95,15 +95,61 @@ const Inscription = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#fff", paddingHorizontal: 20 },
-  title: { fontSize: 32, fontWeight: "bold", color: "#333" },
-  subtitle: { fontSize: 18, color: "#666", marginVertical: 10 },
-  form: { width: "100%", marginTop: 20 },
-  input: { width: "100%", height: 50, borderColor: "#ddd", borderWidth: 1, borderRadius: 8, paddingHorizontal: 15, fontSize: 16, marginBottom: 15, backgroundColor: "#f9f9f9" },
-  button: { backgroundColor: "#FF5722", height: 50, borderRadius: 8, justifyContent: "center", alignItems: "center", marginBottom: 10 },
-  buttonText: { color: "#fff", fontSize: 18, fontWeight: "bold" },
-  footerText: { textAlign: "center", color: "#666", fontSize: 14 },
-  createAccountText: { color: "#FF5722", fontWeight: "bold" },
+  container: { 
+    flex: 1, 
+    justifyContent: "center", 
+    alignItems: "center", 
+    backgroundColor: "#fff", 
+    paddingHorizontal: 20 
+  },
+  title: { 
+    fontSize: 32, 
+    fontWeight: "bold", 
+    color: "#4A148C", // Titre en violet Anybuddy
+  },
+  subtitle: { 
+    fontSize: 18, 
+    color: "#666", 
+    marginVertical: 10 
+  },
+  form: { 
+    width: "100%", 
+    marginTop: 20 
+  },
+  input: { 
+    width: "100%", 
+    height: 50, 
+    borderColor: "#ddd", 
+    borderWidth: 1, 
+    borderRadius: 8, 
+    paddingHorizontal: 15, 
+    fontSize: 16, 
+    marginBottom: 15, 
+    backgroundColor: "#f9f9f9" 
+  },
+  button: { 
+    backgroundColor: "#4A148C", // Violet Anybuddy
+    height: 50, 
+    borderRadius: 8, 
+    justifyContent: "center", 
+    alignItems: "center", 
+    marginBottom: 10 
+  },
+  buttonText: { 
+    color: "#fff", 
+    fontSize: 18, 
+    fontWeight: "bold" 
+  },
+  footerText: { 
+    textAlign: "center", 
+    color: "#666", 
+    fontSize: 14 
+  },
+  createAccountText: { 
+    color: "#4A148C", // Violet pour lien d'inscription
+    fontWeight: "bold" 
+  },
 });
+
 
 export default Inscription;

@@ -107,25 +107,25 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "#E8F5E9", // 🌿 Vert clair pour correspondre à l'univers Anybuddy
     paddingHorizontal: 20,
   },
-  title: { fontSize: 32, fontWeight: "bold", color: "#333" },
-  subtitle: { fontSize: 18, color: "#666", marginVertical: 10 },
+  title: { fontSize: 32, fontWeight: "bold", color: "#1B5E20" }, // 💚 Vert foncé pour le texte
+  subtitle: { fontSize: 18, color: "#388E3C", marginVertical: 10 },
   form: { width: "100%", marginTop: 20 },
   input: {
     width: "100%",
     height: 50,
-    borderColor: "#ddd",
+    borderColor: "#C8E6C9", // 🟢 Vert clair pour la bordure
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 15,
     fontSize: 16,
     marginBottom: 15,
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "#F1F8E9", // 🌱 Fond légèrement teinté vert
   },
   button: {
-    backgroundColor: "#FF5722",
+    backgroundColor: "#2E7D32", // ✅ Vert foncé Anybuddy pour le bouton
     height: 50,
     borderRadius: 8,
     justifyContent: "center",
@@ -141,12 +141,13 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
     marginBottom: 10,
-    borderColor: "#ddd",
+    borderColor: "#C8E6C9", 
     borderWidth: 1,
   },
-  socialButtonText: { fontSize: 16, marginLeft: 10, color: "#333" },
+  socialButtonText: { fontSize: 16, marginLeft: 10, color: "#1B5E20" },
   footerText: { textAlign: "center", color: "#666", fontSize: 14 },
-  createAccountText: { color: "#FF5722", fontWeight: "bold" },
+  createAccountText: { color: "#2E7D32", fontWeight: "bold" },
 });
+
 
 export default Contact;
