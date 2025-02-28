@@ -1,0 +1,33 @@
+name: CI/CD Pipeline Anybuddy Backend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v3
+
+      - name:  Configuration de Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Installation des dépendances
+        run: npm install
+
+      - name:  Exécution des tests
+        run: npm test
+
+      - name:  Build de l'application
+        run: npm run build
+
+      - name:  Déploiement (si tout est OK)
+        if: success()
+        run: echo "Déploiement en cours..."
