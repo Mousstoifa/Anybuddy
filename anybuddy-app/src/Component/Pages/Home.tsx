@@ -1,47 +1,86 @@
-import React from "react";
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { 
+  View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, TextInput 
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../../App"; // ✅ Import des types
+import { RootStackParamList } from "../../../App";
 
+// Type de navigation
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "MainTabs">;
 
 const Home = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
-
+  const [search, setSearch] = useState("");
+  
   const terrains = [
     {
       id: 1,
       name: "Five FC Paris - La Villette",
       image: require("../../Images/ParisFive18.jpg"),
       distance: "3,2 km",
-      times: [
-        { time: "17h00", price: "45 €" },
-        { time: "18h30", price: "50 €" },
-        { time: "20h00", price: "55 €" },
-      ],
     },
     {
       id: 2,
       name: "UrbanSoccer - Meudon",
       image: require("../../Images/Fivemeudon.jpg"),
       distance: "5,5 km",
-      times: [
-        { time: "16h00", price: "40 €" },
-        { time: "18h00", price: "45 €" },
-        { time: "19h30", price: "50 €" },
-      ],
     },
+    {
+      id: 3,
+      name: "Five FC - Champigny",
+      image: require("../../Images/FiveChampigny.webp"),
+      distance: "7,0 km",
+    },
+    {
+      id: 4,
+      name: "Five FC - Ivry",
+      image: require("../../Images/ParisIvry.webp"),
+      distance: "8,3 km",
+    }
   ];
+  
+  // Filtrer les terrains en fonction de la recherche
+  const filteredTerrains = terrains.filter(terrain =>
+    terrain.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Bienvenue ! Un terrain vous tente ?</Text>
+      
+      {/* Barre de recherche */}
+      <TextInput 
+        style={styles.searchBar}
+        placeholder="Rechercher un terrain..."
+        value={search}
+        onChangeText={setSearch}
+      />
+      
+      {/* Boutons de filtre */}
+      <View style={styles.filtersContainer}>
+        <TouchableOpacity style={styles.filterButton}>
+          <Text style={styles.filterText}>Créer un match</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.filterButton}>
+          <Text style={styles.filterText}>Réserver un terrain</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.filterButton}>
+          <Text style={styles.filterText}>Favoris ❤️</Text>
+        </TouchableOpacity>
+      </View>
+      
+      {/* Liste des terrains */}
       <View style={styles.grid}>
-        {terrains.map((terrain) => (
+        {filteredTerrains.map((terrain) => (
           <TouchableOpacity
             key={terrain.id}
-            onPress={() => navigation.navigate("TerrainDetails", { terrain })} // ✅ Corrigé ici
+            onPress={() => navigation.navigate("TerrainDetails", { 
+              terrain: { 
+                ...terrain, 
+                times: [] // ✅ Correction : Ajout de `times` pour éviter l'erreur TypeScript
+              } 
+            })}
           >
             <View style={styles.terrain}>
               <Image source={terrain.image} style={styles.image} resizeMode="cover" />
@@ -60,6 +99,32 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#fff", padding: 10 },
   title: { fontSize: 20, fontWeight: "bold", textAlign: "center", marginBottom: 20 },
+  searchBar: {
+    height: 40,
+    borderColor: "#ddd",
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 15,
+    fontSize: 16,
+    backgroundColor: "#f9f9f9",
+    marginBottom: 10,
+  },
+  filtersContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 15,
+  },
+  filterButton: {
+    backgroundColor: "#f5f5f5", // ✅ Couleur plus sobre (gris clair)
+    padding: 10,
+    borderRadius: 8,
+    alignItems: "center",
+    flex: 1,
+    marginHorizontal: 5,
+    borderWidth: 1,
+    borderColor: "#ddd",
+  },
+  filterText: { color: "#333", fontSize: 14, fontWeight: "bold" },
   grid: { flexDirection: "column", gap: 15 },
   terrain: {
     backgroundColor: "#f8f8f8",

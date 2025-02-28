@@ -39,13 +39,14 @@ const Confirmation = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: "#fff", justifyContent: "center", alignItems: "center" },
+  container: { flex: 1, padding: 20, backgroundColor: "#E8F5E9", justifyContent: "center", alignItems: "center" },
   image: { width: "100%", height: 200, marginBottom: 15 },
-  title: { fontSize: 22, fontWeight: "bold", marginBottom: 10 },
-  info: { fontSize: 16, color: "#666", marginBottom: 10 },
-  button: { backgroundColor: "#FF5722", padding: 15, borderRadius: 8, alignItems: "center", marginTop: 20 },
+  title: { fontSize: 22, fontWeight: "bold", marginBottom: 10, color: "#1B5E20" },
+  info: { fontSize: 16, color: "#2E7D32", marginBottom: 10 },
+  button: { backgroundColor: "#1B5E20", padding: 15, borderRadius: 8, alignItems: "center", marginTop: 20 },
   buttonText: { color: "#fff", fontSize: 18, fontWeight: "bold" },
   errorText: { color: "red", fontSize: 18, textAlign: "center", marginTop: 20 },
 });
+
 
 export default Confirmation;

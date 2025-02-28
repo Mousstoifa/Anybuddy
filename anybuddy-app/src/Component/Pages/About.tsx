@@ -14,30 +14,30 @@ const About = () => {
         </Text>
         <View style={styles.steps}>
           <Text style={styles.step}>
-            1. **Téléchargez l'application** : Anybuddy est disponible sur iOS et Android.
+            1. Téléchargez l'application : Anybuddy est disponible sur iOS et Android.
           </Text>
           <Text style={styles.step}>
-            2. **Créez un compte** : Inscrivez-vous avec votre adresse e-mail ou via Facebook/Google.
+            2. Créez un compte : Inscrivez-vous avec votre adresse e-mail ou via Facebook/Google.
           </Text>
           <Text style={styles.step}>
-            3. **Recherchez un terrain** : Utilisez notre moteur de recherche pour trouver un terrain disponible près de chez vous.
+            3. Recherchez un terrain : Utilisez notre moteur de recherche pour trouver un terrain disponible près de chez vous.
           </Text>
           <Text style={styles.step}>
-            4. **Choisissez un créneau horaire** : Sélectionnez l'heure qui vous convient le mieux et consultez les prix.
+            4. Choisissez un créneau horaire : Sélectionnez l'heure qui vous convient le mieux et consultez les prix.
           </Text>
           <Text style={styles.step}>
-            5. **Réservez et payez en ligne** : Finalisez votre réservation directement dans l'application.
+            5. Réservez et payez en ligne** : Finalisez votre réservation directement dans l'application.
           </Text>
           <Text style={styles.step}>
-            6. **Profitez de votre partie** : Rendez-vous au terrain réservé et amusez-vous avec vos amis !
+            6. Profitez de votre partie : Rendez-vous au terrain réservé et amusez-vous avec vos amis !
           </Text>
         </View>
         <Text style={styles.note}>
-          *Pas besoin d'abonnement, vous ne payez que pour le terrain que vous réservez.*
+          Ne vous inquiétez pas! Pas besoin d'abonnement, vous ne payez que pour le terrain que vous réservez.
         </Text>
         <Text style={styles.subtitle}>Pourquoi choisir Anybuddy ?</Text>
         <Text style={styles.text}>
-          Anybuddy simplifie la réservation de terrains pour des sports comme le football, le tennis, le padel, et bien d'autres :
+          Anybuddy simplifie la réservation des terrains de football:
         </Text>
         <View style={styles.benefits}>
           <Text style={styles.benefit}>✓ Accès à un large réseau de terrains partenaires.</Text>

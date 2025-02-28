@@ -1,12 +1,23 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from "react-native";
+import React, { useState, useEffect } from "react";
+import { 
+  View, Text, StyleSheet, Image, TouchableOpacity, Alert, FlatList
+} from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
 import { RootStackParamList } from "../../../App";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { Picker } from "@react-native-picker/picker";
+import dayjs from "dayjs"; // 📌 Pour le formatage de date/heure
 
+// ✅ Définition du type pour une réservation
+type ReservationType = {
+  idreservation: number;
+  horaire: string; // ISO String "2024-03-01T09:00:00"
+  duree: string;   // "03:00:00"
+  prix: string;
+  idDisponibilite: number;
+};
+
+// ✅ Types pour la navigation
 type TerrainDetailsRouteProp = RouteProp<RootStackParamList, "TerrainDetails">;
 type TerrainDetailsNavigationProp = StackNavigationProp<RootStackParamList, "TerrainDetails">;
 
@@ -24,164 +35,143 @@ const TerrainDetails = () => {
 
   const { terrain } = route.params;
 
-  // États pour la date et les heures
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
+  // ✅ États
+  const [reservations, setReservations] = useState<ReservationType[]>([]);
+  const [selectedReservation, setSelectedReservation] = useState<ReservationType | null>(null);
 
-  const [selectedTimeStart, setSelectedTimeStart] = useState(new Date());
-  const [showTimeStartPicker, setShowTimeStartPicker] = useState(false);
+  // ✅ Récupération des réservations
+  useEffect(() => {
+    const fetchReservations = async () => {
+      try {
+        const response = await fetch(`http://192.168.1.14:5000/api/reservations/terrain/${terrain.id}`);
+        const data: ReservationType[] = await response.json();
 
-  const [selectedTimeEnd, setSelectedTimeEnd] = useState(new Date());
-  const [showTimeEndPicker, setShowTimeEndPicker] = useState(false);
+        if (Array.isArray(data)) {
+          setReservations(data);
+        } else {
+          console.error("Données invalides reçues :", data);
+        }
+      } catch (error) {
+        console.error("Erreur lors de la récupération des réservations :", error);
+      }
+    };
 
-  const [terrainType, setTerrainType] = useState("Five extérieur");
+    fetchReservations();
+  }, [terrain.id]);
 
-  // ✅ Fonction de validation avant réservation
-  const handleReservation = () => {
-    if (!selectedDate || !selectedTimeStart || !selectedTimeEnd || !terrainType) {
-      Alert.alert("Erreur", "Veuillez sélectionner une date, une heure de début, une heure de fin et un type de terrain.");
+  // ✅ Sélection d’un créneau
+  const handleSelectReservation = (reservation: ReservationType) => {
+    setSelectedReservation(reservation);
+  };
+
+  // ✅ Confirmation de réservation
+  const handleConfirm = () => {
+    if (!selectedReservation) {
+      Alert.alert("Erreur", "Veuillez sélectionner un créneau.");
       return;
     }
 
     navigation.navigate("Confirmation", {
       terrain,
-      date: selectedDate.toDateString(),
-      time: `${selectedTimeStart.getHours()}:${selectedTimeStart.getMinutes()} - ${selectedTimeEnd.getHours()}:${selectedTimeEnd.getMinutes()}`,
-      terrainType,
+      date: formatHoraire(selectedReservation.horaire), // ✅ Date formatée
+      time: formatDuree(selectedReservation.duree), // ✅ Durée formatée
+      terrainType: "Five extérieur",
     });
+  };
+
+  // ✅ Formatage de la date et de l'heure
+  const formatHoraire = (isoString: string) => {
+    const date = dayjs(isoString);
+    return `${date.format("DD/MM/YYYY")} à ${date.format("HH:mm")}`;
+  };
+
+  // ✅ Formatage de la durée
+  const formatDuree = (timeString: string) => {
+    const [hours, minutes] = timeString.split(":").map(Number);
+    return `${hours}h ${minutes > 0 ? `${minutes}m` : ""}`;
   };
 
   return (
     <View style={styles.container}>
       {/* 🖼 Image du terrain */}
-      <View style={styles.imageContainer}>
-        <Image source={terrain.image} style={styles.image} resizeMode="cover" />
-      </View>
+      <Image source={terrain.image} style={styles.image} resizeMode="cover" />
 
       {/* 📌 Infos du terrain */}
       <Text style={styles.title}>{terrain.name}</Text>
       <Text style={styles.distance}>📍 {terrain.distance}</Text>
 
-      {/* 🔹 Type de terrain */}
-      <Text style={styles.label}>Type de terrain :</Text>
-      <View style={styles.pickerContainer}>
-        <Picker selectedValue={terrainType} onValueChange={(value) => setTerrainType(value)}>
-          <Picker.Item label="Five extérieur" value="Five extérieur" />
-          <Picker.Item label="Five intérieur" value="Five intérieur" />
-          <Picker.Item label="Terrain à 7" value="Terrain à 7" />
-        </Picker>
+      {/* 🔹 Sélection des créneaux */}
+      <Text style={styles.label}>Sélectionnez un créneau :</Text>
+
+      {reservations.length > 0 ? (
+        <FlatList
+          data={reservations}
+          keyExtractor={(item) => item.idreservation.toString()}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={[
+                styles.reservationItem,
+                selectedReservation?.idreservation === item.idreservation && styles.selectedReservation
+              ]}
+              onPress={() => handleSelectReservation(item)}
+            >
+              <Text>⏰ {formatHoraire(item.horaire)} | ⏳ {formatDuree(item.duree)} | 💰 {item.prix}€</Text>
+            </TouchableOpacity>
+          )}
+        />
+      ) : (
+        <Text style={styles.noData}>Aucun créneau disponible</Text>
+      )}
+
+      {/* ✅ Bouton de Confirmation (remonté visuellement) */}
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={handleConfirm}>
+          <Text style={styles.buttonText}>Confirmer la réservation</Text>
+        </TouchableOpacity>
       </View>
-
-      {/* 📅 Sélection de la Date */}
-      <Text style={styles.label}>Date de réservation :</Text>
-      <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styles.input}>
-        <Text style={styles.inputText}>{selectedDate.toDateString()}</Text>
-      </TouchableOpacity>
-
-      {showDatePicker && (
-        <DateTimePicker
-          value={selectedDate}
-          mode="date"
-          display="spinner"
-          onChange={(event, selected) => {
-            setShowDatePicker(false);
-            if (selected) setSelectedDate(selected);
-          }}
-        />
-      )}
-
-      {/* ⏳ Sélection Heure de Début */}
-      <Text style={styles.label}>Heure de début :</Text>
-      <TouchableOpacity onPress={() => setShowTimeStartPicker(true)} style={styles.input}>
-        <Text style={styles.inputText}>{`${selectedTimeStart.getHours()}:${selectedTimeStart.getMinutes()}`}</Text>
-      </TouchableOpacity>
-
-      {showTimeStartPicker && (
-        <DateTimePicker
-          value={selectedTimeStart}
-          mode="time"
-          display="spinner"
-          onChange={(event, selected) => {
-            setShowTimeStartPicker(false);
-            if (selected) setSelectedTimeStart(selected);
-          }}
-        />
-      )}
-
-      {/* ⏳ Sélection Heure de Fin */}
-      <Text style={styles.label}>Heure de fin :</Text>
-      <TouchableOpacity onPress={() => setShowTimeEndPicker(true)} style={styles.input}>
-        <Text style={styles.inputText}>{`${selectedTimeEnd.getHours()}:${selectedTimeEnd.getMinutes()}`}</Text>
-      </TouchableOpacity>
-
-      {showTimeEndPicker && (
-        <DateTimePicker
-          value={selectedTimeEnd}
-          mode="time"
-          display="spinner"
-          onChange={(event, selected) => {
-            setShowTimeEndPicker(false);
-            if (selected) setSelectedTimeEnd(selected);
-          }}
-        />
-      )}
-
-      {/* ✅ Bouton de Confirmation */}
-      <TouchableOpacity style={styles.button} onPress={handleReservation}>
-        <Text style={styles.buttonText}>Confirmer la réservation</Text>
-      </TouchableOpacity>
     </View>
   );
 };
-
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: "#fff", alignItems: "center" },
+  container: { flex: 1, padding: 20, backgroundColor: "#E8F5E9", alignItems: "center" },
 
-  imageContainer: { width: "100%", height: 220, borderRadius: 10, overflow: "hidden", marginBottom: 15 },
-  image: { width: "100%", height: "100%" },
+  image: { width: "100%", height: 200, borderRadius: 10, marginBottom: 15 },
 
-  title: { fontSize: 20, fontWeight: "bold", textAlign: "center", marginBottom: 10 },
-  distance: { fontSize: 16, color: "#666", marginBottom: 15, textAlign: "center" },
+  title: { fontSize: 20, fontWeight: "bold", textAlign: "center", marginBottom: 5, color: "#1B5E20" },
+  distance: { fontSize: 16, color: "#388E3C", marginBottom: 15, textAlign: "center" },
 
-  label: { fontSize: 16, fontWeight: "bold", marginTop: 10, textAlign: "center" },
+  label: { fontSize: 16, fontWeight: "bold", marginTop: 10, textAlign: "center", color: "#2E7D32" },
 
-  input: {
-    width: "85%",
-    padding: 12,
-    backgroundColor: "#f9f9f9",
+  reservationItem: {
+    width: "100%",
+    padding: 15,
+    backgroundColor: "#C8E6C9",
     borderRadius: 8,
-    borderWidth: 1,
-    borderColor: "#ddd",
     marginBottom: 10,
-    alignItems: "center",
-    height: 50,  
-    justifyContent: "center",
+    textAlign: "center",
   },
 
-  inputText: { fontSize: 16, color: "#333" },
+  selectedReservation: { backgroundColor: "#1B5E20", color: "#fff" },
 
-  pickerContainer: {
-    width: "85%",
-    height: 50,  
-    borderColor: "#ddd",
-    borderWidth: 1,
-    borderRadius: 8,
-    backgroundColor: "#f9f9f9",
-    marginBottom: 10,
-    justifyContent: "center",
+  noData: { color: "#999", fontSize: 16, marginTop: 20 },
+
+  buttonContainer: { 
+    position: "absolute", 
+    bottom: 20, 
+    width: "100%", 
+    alignItems: "center"
   },
 
   button: { 
-    backgroundColor: "#FF5722", 
+    backgroundColor: "#1B5E20",  
     padding: 15, 
     borderRadius: 8, 
     alignItems: "center", 
-    marginTop: 10, 
     width: "85%",  
     height: 50,  
     justifyContent: "center",
   },
-  
+
   buttonText: { color: "#fff", fontSize: 18, fontWeight: "bold" },
 
   errorText: { color: "red", fontSize: 18, textAlign: "center", marginTop: 20 },

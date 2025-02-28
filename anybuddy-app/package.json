@@ -14,7 +14,9 @@
     "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/native": "^7.0.14",
     "@react-navigation/stack": "^7.1.1",
+    "dayjs": "^1.11.13",
     "expo": "^52.0.25",
+    "expo-image-picker": "^16.0.6",
     "expo-status-bar": "~2.0.1",
     "ngrok": "^5.0.0-beta.2",
     "react": "^18.3.1",
@@ -51,5 +53,10 @@
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6"
   },
-  "private": true
+  "private": true,
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
 }

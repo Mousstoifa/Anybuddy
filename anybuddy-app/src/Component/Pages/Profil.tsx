@@ -1,7 +1,25 @@
-import React from "react";
-import { View, Text, StyleSheet, Image, Button, ScrollView } from "react-native";
+import React, { useState } from "react";
+import { 
+  View, Text, StyleSheet, Image, Button, ScrollView, TouchableOpacity 
+} from "react-native";
+import * as ImagePicker from "expo-image-picker"; // ✅ Import de l'API pour l'upload d'image
 
 const Profil = () => {
+  const [profileImage, setProfileImage] = useState<string | null>(null);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setProfileImage(result.assets[0].uri); // ✅ Mise à jour de l'image sélectionnée
+    }
+  };
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -10,9 +28,12 @@ const Profil = () => {
       <View style={styles.profileCard}>
         <View style={styles.avatar}>
           <Image
-            source={{ uri: "https://via.placeholder.com/150" }}
+            source={{ uri: profileImage || "https://via.placeholder.com/150" }}
             style={styles.avatarImage}
           />
+          <TouchableOpacity style={styles.uploadButton} onPress={pickImage}>
+            <Text style={styles.uploadText}>Changer</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.info}>
           <Text style={styles.name}>Mousstoifa Aboudou</Text>
@@ -82,11 +103,25 @@ const styles = StyleSheet.create({
   },
   avatar: {
     marginBottom: 15,
+    alignItems: "center",
   },
   avatarImage: {
     width: 100,
     height: 100,
     borderRadius: 50,
+    borderWidth: 2,
+    borderColor: "#6200ea",
+  },
+  uploadButton: {
+    marginTop: 5,
+    padding: 5,
+    backgroundColor: "#6200ea",
+    borderRadius: 5,
+  },
+  uploadText: {
+    color: "#fff",
+    fontSize: 12,
+    fontWeight: "bold",
   },
   info: {
     alignItems: "center",
