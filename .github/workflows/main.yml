@@ -1,4 +1,4 @@
-name: CI/CD Pipeline Anybuddy Backend
+name: CI/CD Pipeline application anybuddy
 
 on:
   push:
