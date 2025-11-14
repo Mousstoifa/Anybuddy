@@ -1,0 +1,67 @@
+[project]
+name = "tropenix-backend"
+version = "0.1.0"
+description = "Tropenix Backend"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "boto3>=1.40.6",
+    "django>=5.2.5",
+    "django-cors-headers>=4.7.0",
+    "django-storages[s3]>=1.14.6",
+    "djangorestframework>=3.16.1",
+    "djangorestframework-simplejwt>=5.5.1",
+    "drf-spectacular>=0.28.0",
+    "gunicorn>=23.0.0",
+    "pillow>=11.3.0",
+    "psycopg2-binary>=2.9.10",
+    "django-extensions>=4.1",
+    "factory-boy>=3.3.3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ptpython>=3.0.30",
+    "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
+    "pytest-django>=4.11.1",
+    "ruff>=0.12.8",
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "_conf.settings"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+
+[tool.ruff]
+exclude = ["migrations", ".venv"]
+line-length = 120
+target-version = "py313"
+src = ["./src"]
+
+[tool.ruff.lint]
+ignore = [
+    "D100",
+    "D101",
+    "D102",
+    'D103',
+    "D104",
+    "D105",
+    "D106",
+    "D107",
+    "D203",
+    "D212",
+    "ANN002",
+    "ANN003",
+    "ARG002",
+    "PGH003",
+    "PT009",
+    "COM812",
+    "ISC001",
+    "RUF012",
+    "TRY002",
+    "TRY003",
+    "G004",
+    "EM101",
+    "FBT001",
+]
+select = ["ALL"]

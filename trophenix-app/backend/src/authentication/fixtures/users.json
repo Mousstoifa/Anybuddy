@@ -1,0 +1,58 @@
+[
+    {
+        "model": "authentication.user",
+        "pk": 1,
+        "fields": {
+            "email": "trophenix@test.fr",
+            "password": "pbkdf2_sha256$870000$p6TTjMYKSy0Nt6ZyIThZ4N$s9luZYz0bnZWHqFcioQm+6A1bZHsZ7OLFfuAWNxIusA=",
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "created_at": "2025-01-01T12:00:00Z",
+            "updated_at": "2025-01-01T12:00:00Z",
+            "deleted_at": null
+        }
+    },
+    {
+        "model": "authentication.user",
+        "pk": 2,
+        "fields": {
+            "email": "admin@test.fr",
+            "password": "pbkdf2_sha256$870000$p6TTjMYKSy0Nt6ZyIThZ4N$s9luZYz0bnZWHqFcioQm+6A1bZHsZ7OLFfuAWNxIusA=",
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": true,
+            "created_at": "2025-01-01T12:00:00Z",
+            "updated_at": "2025-01-01T12:00:00Z",
+            "deleted_at": null
+        }
+    },
+    {
+        "model": "authentication.user",
+        "pk": 3,
+        "fields": {
+            "email": "company1@test.fr",
+            "password": "pbkdf2_sha256$870000$p6TTjMYKSy0Nt6ZyIThZ4N$s9luZYz0bnZWHqFcioQm+6A1bZHsZ7OLFfuAWNxIusA=",
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "created_at": "2025-01-02T10:00:00Z",
+            "updated_at": "2025-01-02T10:00:00Z",
+            "deleted_at": null
+        }
+    },
+    {
+        "model": "authentication.user",
+        "pk": 4,
+        "fields": {
+            "email": "company2@test.fr",
+            "password": "pbkdf2_sha256$870000$p6TTjMYKSy0Nt6ZyIThZ4N$s9luZYz0bnZWHqFcioQm+6A1bZHsZ7OLFfuAWNxIusA=",
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "created_at": "2025-01-02T10:05:00Z",
+            "updated_at": "2025-01-02T10:05:00Z",
+            "deleted_at": null
+        }
+    }
+]

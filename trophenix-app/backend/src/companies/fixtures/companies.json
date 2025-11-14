@@ -1,0 +1,30 @@
+[
+    {
+        "model": "companies.company",
+        "pk": 1,
+        "fields": {
+            "name": "TechCorp",
+            "size": "pme",
+            "sector": "Technologie",
+            "description": "Entreprise spécialisée dans le développement logiciel",
+            "contact_email": "contact@techcorp.fr",
+            "created_at": "2025-01-02T10:00:00Z",
+            "updated_at": "2025-01-02T10:00:00Z",
+            "deleted_at": null
+        }
+    },
+    {
+        "model": "companies.company",
+        "pk": 2,
+        "fields": {
+            "name": "SportPlus",
+            "size": "tpe",
+            "sector": "Sport et Loisirs",
+            "description": "Magasin d'équipements sportifs",
+            "contact_email": "rh@sportplus.fr",
+            "created_at": "2025-01-02T10:05:00Z",
+            "updated_at": "2025-01-02T10:05:00Z",
+            "deleted_at": null
+        }
+    }
+]

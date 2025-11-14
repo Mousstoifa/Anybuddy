@@ -1,0 +1,51 @@
+# Multi-stage build for production
+FROM astral/uv:python3.13-alpine AS builder
+
+WORKDIR /app
+
+# Set UV environment variables for build
+ENV UV_PROJECT_ENVIRONMENT="/usr/local/" \
+    UV_COMPILE_BYTECODE=1 \
+    UV_PYTHON_DOWNLOADS=never \
+    UV_CACHE_DIR=/tmp/uv-cache
+
+# Copy dependency files
+COPY uv.lock pyproject.toml ./
+
+# Install dependencies
+RUN uv sync --locked --no-dev
+
+# Production stage
+FROM python:3.13-alpine AS production
+
+# Create non-root user for security
+RUN addgroup -g 1001 -S appgroup && \
+    adduser -u 1001 -S appuser -G appgroup
+
+WORKDIR /app
+
+# Copy Python environment from builder
+COPY --from=builder /usr/local /usr/local
+
+# Copy application code
+COPY --chown=appuser:appgroup src/ src/
+
+# Set environment variables for production
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONPATH=/app/src
+
+# Security: Run as non-root user
+USER appuser
+
+# Expose port
+EXPOSE 8000
+
+# Run gunicorn
+CMD ["gunicorn", \
+    "--bind", "0.0.0.0:8000", \
+    "--workers", "4", \
+    "--user", "appuser", \
+    "--group", "appgroup", \
+    "--chdir", "/app/src", \
+    "_conf.wsgi:application"]

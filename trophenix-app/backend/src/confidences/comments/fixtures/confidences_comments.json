@@ -1,0 +1,26 @@
+[
+    {
+        "model": "comments.confidencecomment",
+        "pk": 1,
+        "fields": {
+            "confidence": 1,
+            "athlete": 2,
+            "content": "Bravo pour ce vocal !",
+            "created_at": "2025-01-05T09:15:00Z",
+            "updated_at": "2025-01-05T09:15:00Z",
+            "deleted_at": null
+        }
+    },
+    {
+        "model": "comments.confidencecomment",
+        "pk": 2,
+        "fields": {
+            "confidence": 1,
+            "athlete": 1,
+            "content": "Merci pour vos retours !",
+            "created_at": "2025-01-05T09:20:00Z",
+            "updated_at": "2025-01-05T09:20:00Z",
+            "deleted_at": null
+        }
+    }
+]

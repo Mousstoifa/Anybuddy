@@ -1,0 +1,64 @@
+Audit of auth hook / legacy context usages (generated 2025-10-30)
+
+Matches found (frontend):
+
+1) c:\Users\salim\source\repos\trophenix-app\frontend\src\App.tsx
+  - import { useAuth, AuthProvider } from './AuthProvider';
+  -   const { user, loading, logout } = useAuth();
+
+2) c:\Users\salim\source\repos\trophenix-app\frontend\src\api\auth\useAuth.ts
+  - export function useAuthState() {
+
+3) c:\Users\salim\source\repos\trophenix-app\frontend\src\components\Dashboard\AthleteDashboard.tsx
+  -   // const { profile } = useAuth();
+
+4) c:\Users\salim\source\repos\trophenix-app\frontend\src\components\Jobs\ViewApplications.tsx
+  - import { useAuth } from '../../AuthProvider';
+  -   const { user } = useAuth();
+
+5) c:\Users\salim\source\repos\trophenix-app\frontend\src\components\Dashboard\CompanyDashboard.tsx
+  -   // const { profile } = useAuth();
+
+6) c:\Users\salim\source\repos\trophenix-app\frontend\src\components\Jobs\JobsList.tsx
+  - import { useAuth } from '../../AuthProvider';
+  -   const { user } = useAuth();
+  -   const { user } = useAuth(); (duplicate usage further in file)
+
+7) c:\Users\salim\source\repos\trophenix-app\frontend\src\components\PendingValidation.tsx
+  - import { useAuth } from '../AuthProvider';
+  -   const { signOut } = useAuth();
+
+8) c:\Users\salim\source\repos\trophenix-app\frontend\src\hooks\useFeature.ts
+  - import { useAuth } from '../AuthProvider';
+  -   const { user } = useAuth();
+  -   const { user } = useAuth();
+  -   const { user } = useAuth();
+
+9) c:\Users\salim\source\repos\trophenix-app\frontend\src\components\Jobs\MyApplications.tsx
+  - import { useAuth } from '../../AuthProvider';
+  -   const { user } = useAuth();
+
+10) c:\Users\salim\source\repos\trophenix-app\frontend\src\components\Jobs\ManageJobOffers.tsx
+  - import { useAuth } from '../../AuthProvider';
+  -   const { user } = useAuth();
+
+11) c:\Users\salim\source\repos\trophenix-app\frontend\src\components\Auth\SignUpFlow.tsx
+  - import { useAuth } from '../../AuthProvider';
+  -   const { signUp, signIn } = useAuth();
+
+12) c:\Users\salim\source\repos\trophenix-app\frontend\src\components\Auth\LoginForm.tsx
+  - import { useAuth } from '../../AuthProvider';
+  -   const { login } = useAuth();
+
+Notes & recommendations:
+- Most components already import `useAuth` from the app's `AuthProvider` (good). A few files contained commented-out legacy references to `useAuth()` (likely from the old `contexts/AuthContext`); they're listed for review.
+- The real legacy context import `contexts/AuthContext` did not appear in the frontend search results (no active matches). That suggests most references were already converted or removed; remaining issues are likely due to partial edits.
+- Next step: for each file in this list, decide whether to:
+   1) keep the `useAuth` call (it already uses the single `AuthProvider` hook) if the component is top-level or needs auth actions, OR
+   2) refactor the component to accept a `profile`/`user` prop and update callers (preferred for presentational components).
+
+You can reuse this file in later tasks. If you want, I can now:
+- produce a per-file recommended action mapping, or
+- start applying the refactors (I suggest doing this in small batches and running typechecks after each batch).
+
+File created: frontend/tmp/auth-hook-usage.txt

@@ -1,0 +1,28 @@
+[
+    {
+        "model": "athletes.athlete",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "firstname": "John",
+            "lastname": "Doe",
+            "city": "Marseille",
+            "created_at": "2025-01-02T10:00:00Z",
+            "updated_at": "2025-01-02T10:00:00Z",
+            "deleted_at": null
+        }
+    },
+    {
+        "model": "athletes.athlete",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "firstname": "Jane",
+            "lastname": "Smith",
+            "city": "Nanterre",
+            "created_at": "2025-01-02T10:05:00Z",
+            "updated_at": "2025-01-02T10:05:00Z",
+            "deleted_at": null
+        }
+    }
+]

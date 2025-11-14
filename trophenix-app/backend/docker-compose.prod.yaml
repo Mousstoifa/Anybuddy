@@ -1,0 +1,49 @@
+services:
+  database:
+    image: postgres:17-alpine
+    volumes:
+      - database-volume:/var/lib/postgresql/data
+    container_name: database
+    restart: always
+    hostname: localhost
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+
+  backend:
+    container_name: backend
+    platform: linux/amd64
+    image: "${ECR_REPOSITORY:-770688009346.dkr.ecr.eu-west-3.amazonaws.com/trophenix}:${IMAGE_TAG:-latest}"
+    build:
+      context: ./
+      dockerfile: Dockerfile.prod
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - database
+    restart: on-failure
+
+  shell:
+    container_name: shell
+    build:
+      context: ./
+      dockerfile: Dockerfile.prod
+    scale: 0
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app/src
+      - ./test_data:/app/test_data
+      - .aws:/root/.aws
+
+    entrypoint: python src/manage.py
+    command: shell
+    depends_on:
+      - database
+    restart: on-failure
+
+volumes:
+  database-volume:
